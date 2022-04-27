@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Prof</title>
+</head>
+<body>
+<form action="#" th:action="@{/empruntcreate}" th:object="${empruntLivreForm}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <table border="1">
+        <tr>
+            <td><label>Votre username</label></td>
+            <td><input type="text" th:field="*{username}"/></td>
+        </tr>
+        <tr>
+            <td><label>Titre du livre</label></td>
+            <td><input type="text" th:field="*{nomLivre}"/></td>
+        </tr>
+        <tr>
+            <td><label>Auteur du livre</label></td>
+            <td><input type="text" th:field="*{nomAuteur}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Enregistrer"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

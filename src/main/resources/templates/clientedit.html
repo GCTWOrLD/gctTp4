@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Prof</title>
+</head>
+<body>
+<form action="#" th:action="@{/clientcreate}" th:object="${clientForm}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <table border="1">
+        <tr>
+            <td><label>Prénom</label></td>
+            <td><input type="text" th:field="*{prenom}"/></td>
+        </tr>
+        <tr>
+            <td><label>Nom de famille</label></td>
+            <td><input type="text" th:field="*{nom}"/></td>
+        </tr>
+        <tr>
+            <td><label>Username</label></td>
+            <td><input type="text" th:field="*{username}"/></td>
+        </tr>
+        <tr>
+            <td><label>Password</label></td>
+            <td><input type="text" th:field="*{password}"/></td>
+        </tr>
+        <tr>
+            <td><label>Courriel</label></td>
+            <td><input type="text" th:field="*{email}"/></td>
+        </tr>
+        <tr>
+            <td><label>Téléphone</label></td>
+            <td><input type="text" th:field="*{telephone}"/></td>
+        </tr>
+        <tr>
+            <td><label>Rue</label></td>
+            <td><input type="text" th:field="*{rue}"/></td>
+        </tr>
+        <tr>
+            <td><label>Code Postal</label></td>
+            <td><input type="text" th:field="*{codePostal}"/></td>
+        </tr>
+        <tr>
+            <td><label>Numéro Civique</label></td>
+            <td><input type="text" th:field="*{numeroCivique}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Enregistrer"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
