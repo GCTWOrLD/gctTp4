@@ -47,8 +47,8 @@ public class BiblioService {
         return documentRepository.save(new Livre(titre, auteur, annee, categorie, examplaires, editeur));
     }
 
-    public Livre saveLivre(Livre livre) {
-        return documentRepository.save(livre);
+    public Optional<Livre> saveLivre(Livre livre) {
+        return Optional.of(documentRepository.save(livre));
     }
 
     public Dvd saveDvd(String titre, String auteur, int annee, String categorie, int examplaires, String duree, String studio) {

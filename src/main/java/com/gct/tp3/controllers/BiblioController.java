@@ -1,19 +1,12 @@
 package com.gct.tp3.controllers;
 
-import com.gct.tp3.forms.ClientForm;
-import com.gct.tp3.forms.EmpruntLivreForm;
-import com.gct.tp3.forms.LivreForm;
 import com.gct.tp3.modele.*;
 import com.gct.tp3.service.BiblioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -40,6 +33,15 @@ public class BiblioController {
         logger.info("findDocumentById");
         return service.findDocumentById(id)
                 .map(document -> ResponseEntity.status(HttpStatus.CREATED).body(document))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/livres")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Livre> createTodo(@RequestBody Livre newLivre) {
+        logger.info("post - createLivre " + newLivre);
+        return service.saveLivre(newLivre)
+                .map(livre -> ResponseEntity.status(HttpStatus.CREATED).body(livre))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
