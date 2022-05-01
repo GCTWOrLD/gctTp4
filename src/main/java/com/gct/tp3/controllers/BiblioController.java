@@ -3,21 +3,21 @@ package com.gct.tp3.controllers;
 import com.gct.tp3.forms.ClientForm;
 import com.gct.tp3.forms.EmpruntLivreForm;
 import com.gct.tp3.forms.LivreForm;
-import com.gct.tp3.modele.Client;
-import com.gct.tp3.modele.Emprunt;
-import com.gct.tp3.modele.Livre;
+import com.gct.tp3.modele.*;
 import com.gct.tp3.service.BiblioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class BiblioController {
     Logger logger = LoggerFactory.getLogger(BiblioController.class);
 
@@ -27,76 +27,35 @@ public class BiblioController {
         this.service = service;
     }
 
-    @GetMapping("/")
-    public String getRootRequest(Model model) {
-        model.addAttribute("pageTitle", "Biblio");
-        model.addAttribute("h1Text", "Biblio JavaTown");
-        return "index";
+    @GetMapping("/documents")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Document> getAllDocuments() {
+        logger.info(("getAllDocuments"));
+        return service.getAllDocuments();
     }
 
-    @GetMapping("/clientcreate")
-    public String getClientCreate(@ModelAttribute ClientForm clientForm,
-                                  Model model,
-                                  RedirectAttributes redirectAttributes) {
-        clientForm = new ClientForm(new Client());
-        model.addAttribute("clientForm", clientForm);
-        return "clientedit";
+    @GetMapping ("/documents/{id}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public ResponseEntity<Document> getDocument(@PathVariable Long id) {
+        logger.info("findDocumentById");
+        return service.findDocumentById(id)
+                .map(document -> ResponseEntity.status(HttpStatus.CREATED).body(document))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping("/clientcreate")
-    public String clientPost(@ModelAttribute ClientForm clientForm,
-                             BindingResult errors,
-                             Model model,
-                             RedirectAttributes redirectAttributes) {
-        logger.info("client: " + clientForm);
-        service.saveClient(clientForm.toClient());
-        redirectAttributes.addFlashAttribute("clientForm", clientForm);
-        model.addAttribute("pageTitle", "Client");
-        model.addAttribute("clientForm", clientForm);
-        return "redirect:clientedit/" + clientForm.getId();
+    @GetMapping("/clients")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Personne> getAllClients() {
+        logger.info(("getAllClients"));
+        return service.getAllClients();
     }
 
-    @GetMapping("/livrecreate")
-    public String getLivreCreate(@ModelAttribute LivreForm livreForm,
-                                 Model model,
-                                 RedirectAttributes redirectAttributes) {
-        livreForm = new LivreForm(new Livre());
-        model.addAttribute("livreForm", livreForm);
-        return "livreedit";
+    @GetMapping ("/clients/{id}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public ResponseEntity<Personne> getClient(@PathVariable Long id) {
+        logger.info("findClientById");
+        return service.findClientById(id)
+                .map(client -> ResponseEntity.status(HttpStatus.CREATED).body(client))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
-
-    @PostMapping("/livrecreate")
-    public String livrePost(@ModelAttribute LivreForm livreForm,
-                            BindingResult errors,
-                            Model model,
-                            RedirectAttributes redirectAttributes) {
-        logger.info("livre: " + livreForm);
-        service.saveLivre(livreForm.toLivre());
-        redirectAttributes.addFlashAttribute("livreForm", livreForm);
-        model.addAttribute("pageTitle", "Livre");
-        model.addAttribute("livreForm", livreForm);
-        return "redirect:livreedit/" + livreForm.getId();
-    }
-
-    /*@GetMapping("/empruntcreate")
-    public String getEmpruntCreate(@ModelAttribute EmpruntLivreForm empruntLivreForm,
-                                   Model model,
-                                   RedirectAttributes redirectAttributes) {
-        empruntLivreForm = new EmpruntLivreForm(new Emprunt());
-        model.addAttribute("empruntLivreForm", empruntLivreForm);
-        return "empruntedit";
-    }
-
-    @PostMapping("/empruntcreate")
-    public String empruntLivrePost(@ModelAttribute EmpruntLivreForm empruntLivreForm,
-                                   BindingResult errors,
-                                   Model model,
-                                   RedirectAttributes redirectAttributes) {
-        logger.info(("emprunt: " + empruntLivreForm));
-        service.saveEmprunt(empruntLivreForm.toEmprunt());
-        redirectAttributes.addFlashAttribute("empruntLivreForm", empruntLivreForm);
-        model.addAttribute("pageTitle", "Emprunt Livre");
-        model.addAttribute("empruntLivreForm", empruntLivreForm);
-        return "redirect:empruntedit/" + empruntLivreForm.getId();
-    }*/
 }

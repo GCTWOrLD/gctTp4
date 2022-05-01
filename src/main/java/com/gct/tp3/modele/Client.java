@@ -1,5 +1,6 @@
 package com.gct.tp3.modele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,10 +16,12 @@ public class Client extends Personne {
 
     @OneToMany(mappedBy = "client")
     @Column(nullable = true)
+    @JsonBackReference
     private List<Emprunt> emprunts = new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
     @Column(nullable = true)
+    @JsonBackReference
     private List<Amende> amendes = new ArrayList<>();
 
     public Client(String prenom, String nom, String username, String password, String email, String telephone,

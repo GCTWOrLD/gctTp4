@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BiblioService {
@@ -169,4 +170,20 @@ public class BiblioService {
     /*public List<Emprunt> listerEmprunts(long idClient) {
         return empruntRepository.findEmpruntsAndDateRetour(idClient);
     }*/
+
+    public List<Document> getAllDocuments() {
+        return documentRepository.findAll();
+    }
+
+    public Optional<Document> findDocumentById(Long id) {
+        return documentRepository.findById(id);
+    }
+
+    public List<Personne> getAllClients() {
+        return personneRepository.findAll();
+    }
+
+    public Optional<Personne> findClientById(Long id) {
+        return personneRepository.findById(id);
+    }
 }
