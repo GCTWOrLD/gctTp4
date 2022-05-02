@@ -38,8 +38,17 @@ public class BiblioController {
 
     @PostMapping("/livres")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Livre> createTodo(@RequestBody Livre newLivre) {
+    public ResponseEntity<Livre> createLivre(@RequestBody Livre newLivre) {
         logger.info("post - createLivre " + newLivre);
+        return service.saveLivre(newLivre)
+                .map(livre -> ResponseEntity.status(HttpStatus.CREATED).body(livre))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PutMapping("/livres/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Livre> updateLivre(@RequestBody Livre newLivre, @PathVariable Long id) {
+        logger.info("update - updateLivre " + newLivre);
         return service.saveLivre(newLivre)
                 .map(livre -> ResponseEntity.status(HttpStatus.CREATED).body(livre))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
