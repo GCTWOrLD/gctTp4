@@ -1,10 +1,7 @@
 package com.gct.tp3.service;
 
 import com.gct.tp3.modele.*;
-import com.gct.tp3.repository.AmendeRepository;
-import com.gct.tp3.repository.DocumentRepository;
-import com.gct.tp3.repository.EmpruntRepository;
-import com.gct.tp3.repository.PersonneRepository;
+import com.gct.tp3.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +21,9 @@ public class BiblioService {
 
     @Autowired
     private DocumentRepository documentRepository;
+
+    @Autowired
+    private LivreRepository livreRepository;
 
     @Autowired
     private EmpruntRepository empruntRepository;
@@ -72,7 +72,7 @@ public class BiblioService {
     }
 
     public Livre findByTitreAndAuteur(String titreDocument, String auteurDocument) {
-        return documentRepository.findByTitreAndAuteur(titreDocument, auteurDocument);
+        return livreRepository.findByTitreAndAuteur(titreDocument, auteurDocument);
     }
 
     public List<Document> findByAuteur(String auteurDocument) {
@@ -175,12 +175,12 @@ public class BiblioService {
         return empruntRepository.findEmpruntsAndDateRetour(idClient);
     }*/
 
-    public List<Document> getAllDocuments() {
-        return documentRepository.findAll();
+    public List<Livre> getAllLivres() {
+        return livreRepository.findAll();
     }
 
-    public Optional<Document> findDocumentById(Long id) {
-        return documentRepository.findById(id);
+    public Optional<Livre> findLivreById(Long id) {
+        return livreRepository.findById(id);
     }
 
     public List<Personne> getAllClients() {

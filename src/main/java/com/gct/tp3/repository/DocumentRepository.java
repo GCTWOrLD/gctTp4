@@ -13,9 +13,6 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 
     List<Document> findByAnnee(int annee);
 
-
-    Livre findByTitreAndAuteur(String titreDocument, String auteurDocument);
-
     @Query("select d from Document d where d.titre like %:titreDocument%")
     List<Document> findByTitre(@Param("titreDocument") String text);
 

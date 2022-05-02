@@ -20,19 +20,19 @@ public class BiblioController {
         this.service = service;
     }
 
-    @GetMapping("/documents")
+    @GetMapping("/livres")
     @CrossOrigin(origins = "http:/localhost:3000")
-    public List<Document> getAllDocuments() {
-        logger.info(("getAllDocuments"));
-        return service.getAllDocuments();
+    public List<Livre> getAllLivres() {
+        logger.info(("getAllLivres"));
+        return service.getAllLivres();
     }
 
-    @GetMapping ("/documents/{id}")
+    @GetMapping ("/livres/{id}")
     @CrossOrigin(origins = "http:/localhost:3000")
-    public ResponseEntity<Document> getDocument(@PathVariable Long id) {
-        logger.info("findDocumentById");
-        return service.findDocumentById(id)
-                .map(document -> ResponseEntity.status(HttpStatus.CREATED).body(document))
+    public ResponseEntity<Livre> getLivre(@PathVariable Long id) {
+        logger.info("findLivreById " + id);
+        return service.findLivreById(id)
+                .map(livre -> ResponseEntity.status(HttpStatus.CREATED).body(livre))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
@@ -72,7 +72,7 @@ public class BiblioController {
     @GetMapping ("/clients/{id}")
     @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Personne> getClient(@PathVariable Long id) {
-        logger.info("findClientById");
+        logger.info("findClientById " + id);
         return service.findClientById(id)
                 .map(client -> ResponseEntity.status(HttpStatus.CREATED).body(client))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
