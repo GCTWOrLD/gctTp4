@@ -20,6 +20,8 @@ public class BiblioController {
         this.service = service;
     }
 
+    //Livres
+
     @GetMapping("/livres")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Livre> getAllLivres() {
@@ -62,19 +64,47 @@ public class BiblioController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
+    // Clients
+
     @GetMapping("/clients")
     @CrossOrigin(origins = "http:/localhost:3000")
-    public List<Personne> getAllClients() {
+    public List<Client> getAllClients() {
         logger.info(("getAllClients"));
         return service.getAllClients();
     }
 
     @GetMapping ("/clients/{id}")
     @CrossOrigin(origins = "http:/localhost:3000")
-    public ResponseEntity<Personne> getClient(@PathVariable Long id) {
+    public ResponseEntity<Client> getClient(@PathVariable Long id) {
         logger.info("findClientById " + id);
         return service.findClientById(id)
                 .map(client -> ResponseEntity.status(HttpStatus.CREATED).body(client))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/clients")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Client> createClient(@RequestBody Client newClient) {
+        logger.info("post - createClient " + newClient);
+        return service.saveClient(newClient)
+                .map(client -> ResponseEntity.status(HttpStatus.CREATED).body(client))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PutMapping("/clients/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Client> updateClient(@RequestBody Client newClient, @PathVariable Long id) {
+        logger.info("update - updateClient " + newClient);
+        return service.saveClient(newClient)
+                .map(client -> ResponseEntity.status(HttpStatus.CREATED).body(client))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @DeleteMapping("/clients/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Long> deleteClient(Client oldClient, @PathVariable Long id) {
+        logger.info(("delete - deleteClient " + id));
+        service.deleteClient(oldClient);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

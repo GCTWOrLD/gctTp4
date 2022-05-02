@@ -31,16 +31,23 @@ public class BiblioService {
     @Autowired
     private PersonneRepository personneRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     public Client saveClient(String prenom, String nom, String username,
                              String password, String email, String telephone,
                              String rue, String codePostal, String numeroCivique) {
-        return personneRepository.save(new Client(prenom, nom, username,
+        return clientRepository.save(new Client(prenom, nom, username,
                 password, email, telephone, rue, codePostal,
                 numeroCivique, null, null));
     }
 
-    public Client saveClient(Client client) {
-        return personneRepository.save(client);
+    public Optional<Client> saveClient(Client client) {
+        return Optional.of(clientRepository.save(client));
+    }
+
+    public void deleteClient(Client client) {
+        clientRepository.delete(client);
     }
 
     public Livre saveLivre(String titre, String auteur, int annee, String categorie, int examplaires, String editeur) {
@@ -68,7 +75,7 @@ public class BiblioService {
     }
 
     public Client findByUsername(String username) {
-        return personneRepository.findByUsername(username);
+        return clientRepository.findByUsername(username);
     }
 
     public Livre findByTitreAndAuteur(String titreDocument, String auteurDocument) {
@@ -107,7 +114,7 @@ public class BiblioService {
             }
             doc.setExamplaires(doc.getExamplaires() - 1);
             client.getEmprunts().add(emprunt);
-            personneRepository.save(client);
+            clientRepository.save(client);
             empruntRepository.save(emprunt);
             documentRepository.save(doc);
             System.out.println("Emprunt effectué.");
@@ -127,7 +134,7 @@ public class BiblioService {
                 System.out.println("Retour effectué.");
             }
         }
-        personneRepository.save(client);
+        clientRepository.save(client);
     }
 
     public void payerFraisRetard(Client client) {
@@ -137,7 +144,7 @@ public class BiblioService {
                 amendes.remove(amende);
                 amendeRepository.delete(amende);
             }
-            personneRepository.save(client);
+            clientRepository.save(client);
             System.out.println("Frais payés.");
         } else {
             System.out.println("Vous n'avez pas de frais à payer.");
@@ -183,11 +190,11 @@ public class BiblioService {
         return livreRepository.findById(id);
     }
 
-    public List<Personne> getAllClients() {
-        return personneRepository.findAll();
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
     }
 
-    public Optional<Personne> findClientById(Long id) {
-        return personneRepository.findById(id);
+    public Optional<Client> findClientById(Long id) {
+        return clientRepository.findById(id);
     }
 }

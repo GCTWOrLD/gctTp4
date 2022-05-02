@@ -3,6 +3,8 @@ package com.gct.tp3.modele;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,13 +17,15 @@ import java.util.List;
 public class Client extends Personne {
 
     @OneToMany(mappedBy = "client")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Column(nullable = true)
-    @JsonBackReference
+    @JsonBackReference(value="client_emprunts")
     private List<Emprunt> emprunts = new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Column(nullable = true)
-    @JsonBackReference
+    @JsonBackReference(value="client_amendes")
     private List<Amende> amendes = new ArrayList<>();
 
     public Client(String prenom, String nom, String username, String password, String email, String telephone,
