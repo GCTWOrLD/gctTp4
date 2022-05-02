@@ -20,7 +20,7 @@ public class BiblioController {
         this.service = service;
     }
 
-    //Livres
+    // Livres
 
     @GetMapping("/livres")
     @CrossOrigin(origins = "http:/localhost:3000")
@@ -61,6 +61,94 @@ public class BiblioController {
     public ResponseEntity<Long> deleteLivre(Livre oldLivre, @PathVariable Long id) {
         logger.info(("delete - deleteLivre " + id));
         service.deleteLivre(oldLivre);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    // Cds
+
+    @GetMapping("/cds")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Cd> getAllCds() {
+        logger.info(("getAllCds"));
+        return service.getAllCds();
+    }
+
+    @GetMapping ("/cds/{id}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public ResponseEntity<Cd> getCd(@PathVariable Long id) {
+        logger.info("findCdById " + id);
+        return service.findCdById(id)
+                .map(cd -> ResponseEntity.status(HttpStatus.CREATED).body(cd))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/cds")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Cd> createCd(@RequestBody Cd newCd) {
+        logger.info("post - createCd " + newCd);
+        return service.saveCd(newCd)
+                .map(cd -> ResponseEntity.status(HttpStatus.CREATED).body(cd))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PutMapping("/cds/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Cd> updateCd(@RequestBody Cd newCd, @PathVariable Long id) {
+        logger.info("update - updateCd " + newCd);
+        return service.saveCd(newCd)
+                .map(cd -> ResponseEntity.status(HttpStatus.CREATED).body(cd))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @DeleteMapping("/cds/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Long> deleteCd(Cd oldCd, @PathVariable Long id) {
+        logger.info(("delete - deleteCd " + id));
+        service.deleteCd(oldCd);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    // Dvds
+
+    @GetMapping("/dvds")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Dvd> getAllDvds() {
+        logger.info(("getAllDvs"));
+        return service.getAllDvds();
+    }
+
+    @GetMapping ("/dvds/{id}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public ResponseEntity<Dvd> getDvd(@PathVariable Long id) {
+        logger.info("findDvdById " + id);
+        return service.findDvdById(id)
+                .map(dvd -> ResponseEntity.status(HttpStatus.CREATED).body(dvd))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/dvds")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Dvd> createDvd(@RequestBody Dvd newDvd) {
+        logger.info("post - createDvd " + newDvd);
+        return service.saveDvd(newDvd)
+                .map(dvd -> ResponseEntity.status(HttpStatus.CREATED).body(dvd))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PutMapping("/dvds/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Dvd> updateDvd(@RequestBody Dvd newDvd, @PathVariable Long id) {
+        logger.info("update - updateDvd " + newDvd);
+        return service.saveDvd(newDvd)
+                .map(dvd -> ResponseEntity.status(HttpStatus.CREATED).body(dvd))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @DeleteMapping("/dvds/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Long> deleteDvd(Dvd oldDvd, @PathVariable Long id) {
+        logger.info(("delete - deleteDvd " + id));
+        service.deleteDvd(oldDvd);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 

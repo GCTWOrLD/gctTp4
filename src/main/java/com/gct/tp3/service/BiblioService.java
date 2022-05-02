@@ -26,6 +26,12 @@ public class BiblioService {
     private LivreRepository livreRepository;
 
     @Autowired
+    private CdRepository cdRepository;
+
+    @Autowired
+    private DvdRepository dvdRepository;
+
+    @Autowired
     private EmpruntRepository empruntRepository;
 
     @Autowired
@@ -66,8 +72,24 @@ public class BiblioService {
         return documentRepository.save(new Dvd(titre, auteur, annee, categorie, examplaires, duree, studio));
     }
 
+    public Optional<Dvd> saveDvd(Dvd dvd) {
+        return Optional.of(dvdRepository.save(dvd));
+    }
+
+    public void deleteDvd(Dvd dvd) {
+        dvdRepository.delete(dvd);
+    }
+
     public Cd saveCd(String titre, String auteur, int annee, String categorie, int examplaires, String duree, String studio) {
         return documentRepository.save(new Cd(titre, auteur, annee, categorie, examplaires, duree, studio));
+    }
+
+    public Optional<Cd> saveCd(Cd cd) {
+        return Optional.of(cdRepository.save(cd));
+    }
+
+    public void deleteCd(Cd cd) {
+        cdRepository.delete(cd);
     }
 
     public Emprunt saveEmprunt(Emprunt emprunt) {
@@ -196,5 +218,21 @@ public class BiblioService {
 
     public Optional<Client> findClientById(Long id) {
         return clientRepository.findById(id);
+    }
+
+    public List<Cd> getAllCds() {
+        return cdRepository.findAll();
+    }
+
+    public Optional<Cd> findCdById(Long id) {
+        return cdRepository.findById(id);
+    }
+
+    public List<Dvd> getAllDvds() {
+        return dvdRepository.findAll();
+    }
+
+    public Optional<Dvd> findDvdById(Long id) {
+        return dvdRepository.findById(id);
     }
 }
