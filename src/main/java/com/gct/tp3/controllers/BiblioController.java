@@ -52,7 +52,7 @@ public class BiblioController {
 
     // Emprunts
 
-    @PostMapping("/emprunts/{client}/{document}")
+    @PostMapping("/emprunts")
     @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Emprunt> emprunterDocument(@RequestBody Emprunt newEmprunt, @PathVariable Client client, @PathVariable Document document) {
         logger.info("post - createEmprunt " + newEmprunt);
@@ -60,12 +60,20 @@ public class BiblioController {
         return null;
     }
 
-    @DeleteMapping("/emprunts/{client}/{document}")
+    @DeleteMapping("/emprunts/{client.id}")
     @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Long> retournerDocument(Emprunt oldEmprunt, Client client, Document document, @PathVariable Long id) {
         logger.info("delete - deleteEmprunt " + id);
         //service.retournerDocument(client, document);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @GetMapping("/emprunts/{id}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Emprunt> getAllEmprunts(@PathVariable Long id) {
+        logger.info("getAllEmprunts");
+        //return service.listerEmprunts(id);
+        return null;
     }
 
     // Livres
