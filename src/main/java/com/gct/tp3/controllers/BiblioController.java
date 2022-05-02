@@ -20,12 +20,21 @@ public class BiblioController {
         this.service = service;
     }
 
+    // Documents
+
+    @GetMapping("/documents/{annee}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Document> getAllDocumentsFromYear(@PathVariable int annee) {
+        logger.info("getAllDocumentsFromYear");
+        return service.findByAnnee(annee);
+    }
+
     // Livres
 
     @GetMapping("/livres")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Livre> getAllLivres() {
-        logger.info(("getAllLivres"));
+        logger.info("getAllLivres");
         return service.getAllLivres();
     }
 
@@ -69,7 +78,7 @@ public class BiblioController {
     @GetMapping("/cds")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Cd> getAllCds() {
-        logger.info(("getAllCds"));
+        logger.info("getAllCds");
         return service.getAllCds();
     }
 
@@ -113,7 +122,7 @@ public class BiblioController {
     @GetMapping("/dvds")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Dvd> getAllDvds() {
-        logger.info(("getAllDvs"));
+        logger.info("getAllDvs");
         return service.getAllDvds();
     }
 
@@ -157,7 +166,7 @@ public class BiblioController {
     @GetMapping("/clients")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Client> getAllClients() {
-        logger.info(("getAllClients"));
+        logger.info("getAllClients");
         return service.getAllClients();
     }
 
