@@ -51,6 +51,10 @@ public class BiblioService {
         return Optional.of(documentRepository.save(livre));
     }
 
+    public void deleteLivre(Livre livre) {
+        documentRepository.delete(livre);
+    }
+
     public Dvd saveDvd(String titre, String auteur, int annee, String categorie, int examplaires, String duree, String studio) {
         return documentRepository.save(new Dvd(titre, auteur, annee, categorie, examplaires, duree, studio));
     }

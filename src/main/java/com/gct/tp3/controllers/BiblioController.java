@@ -54,6 +54,14 @@ public class BiblioController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
+    @DeleteMapping("/livres/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Long> deleteLivre(Livre oldLivre, @PathVariable Long id) {
+        logger.info(("delete - deleteLivre " + id));
+        service.deleteLivre(oldLivre);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
     @GetMapping("/clients")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Personne> getAllClients() {
