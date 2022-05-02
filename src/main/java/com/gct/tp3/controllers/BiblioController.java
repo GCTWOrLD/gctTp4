@@ -22,6 +22,13 @@ public class BiblioController {
 
     // Documents
 
+    @GetMapping("/documents/auteur/{auteur}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Document> getAllDocumentsFromAuteur(@PathVariable String auteur) {
+        logger.info("getAllDocumentsFromAuteur");
+        return service.findByAuteur(auteur);
+    }
+
     @GetMapping("/documents/categorie/{categorie}")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Document> getAllDocumentsFromCategorie(@PathVariable String categorie) {
