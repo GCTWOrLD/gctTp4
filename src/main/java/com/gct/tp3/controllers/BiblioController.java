@@ -22,7 +22,14 @@ public class BiblioController {
 
     // Documents
 
-    @GetMapping("/documents/{annee}")
+    @GetMapping("/documents/categorie/{categorie}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public List<Document> getAllDocumentsFromCategorie(@PathVariable String categorie) {
+        logger.info("getAllDocumentsFromCategorie");
+        return service.findByCategorie(categorie);
+    }
+
+    @GetMapping("/documents/annee/{annee}")
     @CrossOrigin(origins = "http:/localhost:3000")
     public List<Document> getAllDocumentsFromYear(@PathVariable int annee) {
         logger.info("getAllDocumentsFromYear");
