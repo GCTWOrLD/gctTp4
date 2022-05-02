@@ -50,6 +50,24 @@ public class BiblioController {
         return service.findByAnnee(annee);
     }
 
+    // Emprunts
+
+    @PostMapping("/emprunts/{client}/{document}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public ResponseEntity<Emprunt> emprunterDocument(@RequestBody Emprunt newEmprunt, @PathVariable Client client, @PathVariable Document document) {
+        logger.info("post - createEmprunt " + newEmprunt);
+        //return service.emprunterDocument(client, document)...
+        return null;
+    }
+
+    @DeleteMapping("/emprunts/{client}/{document}")
+    @CrossOrigin(origins = "http:/localhost:3000")
+    public ResponseEntity<Long> retournerDocument(Emprunt oldEmprunt, Client client, Document document, @PathVariable Long id) {
+        logger.info("delete - deleteEmprunt " + id);
+        //service.retournerDocument(client, document);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
     // Livres
 
     @GetMapping("/livres")
@@ -89,7 +107,7 @@ public class BiblioController {
     @DeleteMapping("/livres/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteLivre(Livre oldLivre, @PathVariable Long id) {
-        logger.info(("delete - deleteLivre " + id));
+        logger.info("delete - deleteLivre " + id);
         service.deleteLivre(oldLivre);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
@@ -133,7 +151,7 @@ public class BiblioController {
     @DeleteMapping("/cds/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteCd(Cd oldCd, @PathVariable Long id) {
-        logger.info(("delete - deleteCd " + id));
+        logger.info("delete - deleteCd " + id);
         service.deleteCd(oldCd);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
@@ -177,7 +195,7 @@ public class BiblioController {
     @DeleteMapping("/dvds/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteDvd(Dvd oldDvd, @PathVariable Long id) {
-        logger.info(("delete - deleteDvd " + id));
+        logger.info("delete - deleteDvd " + id);
         service.deleteDvd(oldDvd);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
@@ -221,7 +239,7 @@ public class BiblioController {
     @DeleteMapping("/clients/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteClient(Client oldClient, @PathVariable Long id) {
-        logger.info(("delete - deleteClient " + id));
+        logger.info("delete - deleteClient " + id);
         service.deleteClient(oldClient);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
