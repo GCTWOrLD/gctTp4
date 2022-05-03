@@ -1,25 +1,24 @@
-import PropTypes from 'prop-types'
-import Button from './Button'
+import React from 'react';
+import {NavLink} from 'react-router-dom';
 
-const Header = ({title}) => {
-    const onClick = () => {
-        console.log('Click')
+const Header = () => {
+    const blue = "#89CFF0"
+    const red = "#F12B2A"
+    const navLinkStyles = ({isActive}) => {
+        console.log(isActive)
+        return {
+            fontWeight: isActive ? "bold" : "normal",
+            textDecoration: isActive ? "none" : "underline",
+            color: isActive ? `${red}` : `${blue}`
+        }
     }
     return (
-        <header className='header'>
-            <h1>{title}</h1>
-            <Button text='Admin' onClick={onClick}/>
-            <Button text='Client' onClick={onClick}/>
-        </header>
+        <div>
+            <NavLink to="/" style={navLinkStyles}>Home</NavLink>{" | "}
+            <NavLink to="/admin" style={navLinkStyles}>Admin</NavLink> {" | "}
+            <NavLink to="/client" style={navLinkStyles}>Client</NavLink>
+        </div>
     )
 }
 
-Header.defaultProps = {
-    title: 'Librairie Javatown'
-}
-
-Header.propTypes = {
-    title: PropTypes.string.isRequired,
-}
-
-export default Header
+export default Header;
