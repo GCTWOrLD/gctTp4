@@ -39,8 +39,8 @@ const NewClient = () => (
             <label>
                 Numéro civique:
                 <input type="text" name="numeroCivique" />
-            </label>
-            <input type="submit" value="Créer" />
+            </label><br></br>
+            <input type="submit" value="Créer Client" />
         </form>
     </div>
 )
