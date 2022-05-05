@@ -1,19 +1,22 @@
 import React from "react";
 import {useState, useEffect} from 'react';
-import NewCd from "./NewCd";
+import AddCd from "./AddCd";
 import NewClient from "./NewClient";
 import NewDvd from "./NewDvd";
 import AddLivre from "./AddLivre";
 import ClientsList from "./ClientsList";
 import AddClient from "./AddClient";
 import LivresList from "./LivresList";
+import CdsList from "./CdsList";
 
 function Admin() {
     const [showAddClient, setShowAddClient] = useState(false)
     const [clients, setClients] = useState([])
     const [showAddLivre, setShowAddLivre] = useState(false)
     const [livres, setLivres] = useState([])
-
+    const [showAddCd, setShowAddCd] = useState(false)
+    const [cds, setCds] = useState([])
+    
   useEffect(() => {
     const getClients = async () => {
       const clientsFromServer = await fetchClients()
@@ -25,6 +28,11 @@ function Admin() {
         setLivres(livresFromServer)
     }
     getLivres()
+    const getCds = async () => {
+        const cdsFromServer = await fetchCds()
+        setCds(cdsFromServer)
+    }
+    getCds()
   }, []) 
 
   const fetchClients = async () => {
@@ -91,6 +99,38 @@ function Admin() {
     setLivres(livres.filter((livre) => livre.id !== id))
   }
 
+  const fetchCds = async () => {
+    const res = await fetch('http://localhost:8080/cds')
+    const data = await res.json()
+    return data
+  }
+
+  const fetchCd = async(id) => {
+    const res = await fetch(`http://localhost:8080/cds/${id}`)
+    const data = await res.json()
+    return data
+  }
+
+  const addCd = async (cd) => {
+    const res = await fetch('http://localhost:8080/cds',
+    {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(cd)
+    })
+    const data = await res.json()
+    setCds([...cds, data])
+  }
+
+  const deleteCd = async (id) => {
+    await fetch(`http://localhost:8080/cds/${id}`, {
+      method: 'DELETE'
+    })
+    setCds(cds.filter((cd) => cd.id !== id))
+  }
+
   return (
     <div>
         <h2>Admin Pannel</h2>
@@ -98,6 +138,8 @@ function Admin() {
         <AddClient onAdd={addClient}/>
         <LivresList livres={livres} onDelete={deleteLivre}/>
         <AddLivre onAdd={addLivre}/>
+        <CdsList cds={cds} onDelete={deleteCd}/>
+        <AddCd onAdd={addCd}/>
     </div>
   );
 }
