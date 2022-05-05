@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const AddCd = ({onAdd}) => {
+const AddDvd = ({onAdd}) => {
     const [titre, setTitre] = useState('')
     const [auteur, setAuteur] = useState('')
     const [annee, setAnnee] = useState('')
@@ -71,9 +71,9 @@ const AddCd = ({onAdd}) => {
                 value={studio}
                 onChange={(e) => setStudio(e.target.value)} />
             </div>
-            <input type='submit' value='Sauvegarder Cd' className='btn btn-block'/>
+            <input type='submit' value='Sauvegarder Dvd' className='btn btn-block'/>
         </form>
     )
 }
 
-export default AddCd;
+export default AddDvd;

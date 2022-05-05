@@ -1,13 +1,13 @@
 import React from "react";
 import {useState, useEffect} from 'react';
 import AddCd from "./AddCd";
-import NewClient from "./NewClient";
-import NewDvd from "./NewDvd";
+import AddDvd from "./AddDvd";
 import AddLivre from "./AddLivre";
 import ClientsList from "./ClientsList";
 import AddClient from "./AddClient";
 import LivresList from "./LivresList";
 import CdsList from "./CdsList";
+import DvdsList from "./DvdsList";
 
 function Admin() {
     const [showAddClient, setShowAddClient] = useState(false)
@@ -16,6 +16,8 @@ function Admin() {
     const [livres, setLivres] = useState([])
     const [showAddCd, setShowAddCd] = useState(false)
     const [cds, setCds] = useState([])
+    const [showAddDvd, setShowAddDvd] = useState(false)
+    const [dvds, setDvds] = useState([])
     
   useEffect(() => {
     const getClients = async () => {
@@ -33,6 +35,11 @@ function Admin() {
         setCds(cdsFromServer)
     }
     getCds()
+    const getDvds = async () => {
+        const dvdsFromServer = await fetchDvds()
+        setDvds(dvdsFromServer)
+    }
+    getDvds()
   }, []) 
 
   const fetchClients = async () => {
@@ -131,6 +138,38 @@ function Admin() {
     setCds(cds.filter((cd) => cd.id !== id))
   }
 
+  const fetchDvds = async () => {
+    const res = await fetch('http://localhost:8080/dvds')
+    const data = await res.json()
+    return data
+  }
+
+  const fetchDvd = async(id) => {
+    const res = await fetch(`http://localhost:8080/dvds/${id}`)
+    const data = await res.json()
+    return data
+  }
+
+  const addDvd = async (dvd) => {
+    const res = await fetch('http://localhost:8080/dvds',
+    {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(dvd)
+    })
+    const data = await res.json()
+    setDvds([...dvds, data])
+  }
+
+  const deleteDvd = async (id) => {
+    await fetch(`http://localhost:8080/dvds/${id}`, {
+      method: 'DELETE'
+    })
+    setDvds(dvds.filter((dvd) => dvd.id !== id))
+  }
+
   return (
     <div>
         <h2>Admin Pannel</h2>
@@ -140,6 +179,8 @@ function Admin() {
         <AddLivre onAdd={addLivre}/>
         <CdsList cds={cds} onDelete={deleteCd}/>
         <AddCd onAdd={addCd}/>
+        <DvdsList dvds={dvds} onDelete={deleteDvd}/>
+        <AddDvd onAdd={addDvd}/>
     </div>
   );
 }
