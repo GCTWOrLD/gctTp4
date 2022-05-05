@@ -3,9 +3,10 @@ import {useState, useEffect} from 'react';
 import NewCd from "./NewCd";
 import NewClient from "./NewClient";
 import NewDvd from "./NewDvd";
-import NewLivre from "./NewLivre";
+import AddLivre from "./AddLivre";
 import ClientsList from "./ClientsList";
 import AddClient from "./AddClient";
+import LivresList from "./LivresList";
 
 function Admin() {
     const [showAddClient, setShowAddClient] = useState(false)
@@ -95,11 +96,8 @@ function Admin() {
         <h2>Admin Pannel</h2>
         <ClientsList clients={clients} onDelete={deleteClient}/>
         <AddClient onAdd={addClient}/>
-        {/* 
-        <NewClient/>
-        <NewLivre/>
-        <NewCd/>
-        <NewDvd/> */}
+        <LivresList livres={livres} onDelete={deleteLivre}/>
+        <AddLivre onAdd={addLivre}/>
     </div>
   );
 }
