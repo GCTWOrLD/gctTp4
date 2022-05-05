@@ -5,15 +5,16 @@ import RechercheAuteur from "./RechercheAuteur";
 import RechercheCategorie from "./RechercheCategorie";
 import RechercheTitre from "./RechercheTitre";
 
-const Client = () => (
+const ClientList = () => (
     <div>
         <h2>Client Pannel</h2>
-        <RechercheTitre/>
+        {/* <RechercheTitre/>
         <RechercheAuteur/>
         <RechercheAnnee/>
         <RechercheCategorie/>
-        <Emprunts/>
+        <DocsCategorie/>
+        <Emprunts/> */}
     </div>
 )
 
-export default Client;
+export default ClientList;
