@@ -26,6 +26,9 @@ public class Tp3Application implements CommandLineRunner {
         final Client client1 = service.saveClient("Gabriel", "Caron-Tawil", "GCT",
                 "password", "gct@gmail.com",
                 "(514) 704-1694", "Alexis-Carrel", "J6K 4L5", "104");
+        final Client client2 = service.saveClient("Michael", "Caron-Tawil", "MCT",
+                "password", "mct@gmail.com",
+                "(514) 704-1694", "Alexis-Carrel", "J6K 4L5", "104");
 
         final Livre livre1 = service.saveLivre("Math 101", "Paul Laroche", 1999, "Roman", 2, "Éditions Soleil");
 

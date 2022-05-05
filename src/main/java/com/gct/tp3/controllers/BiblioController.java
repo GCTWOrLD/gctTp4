@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class BiblioController {
     Logger logger = LoggerFactory.getLogger(BiblioController.class);
@@ -23,28 +24,24 @@ public class BiblioController {
     // Documents
 
     @GetMapping("/documents/titre/{titre}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Document> getAllDocumentsLikeTitre(@PathVariable String titre) {
         logger.info("getAllDocumentsLikeTitre");
         return service.findByTitre(titre);
     }
 
     @GetMapping("/documents/auteur/{auteur}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Document> getAllDocumentsFromAuteur(@PathVariable String auteur) {
         logger.info("getAllDocumentsFromAuteur");
         return service.findByAuteur(auteur);
     }
 
     @GetMapping("/documents/categorie/{categorie}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Document> getAllDocumentsFromCategorie(@PathVariable String categorie) {
         logger.info("getAllDocumentsFromCategorie");
         return service.findByCategorie(categorie);
     }
 
     @GetMapping("/documents/annee/{annee}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Document> getAllDocumentsFromYear(@PathVariable int annee) {
         logger.info("getAllDocumentsFromYear");
         return service.findByAnnee(annee);
@@ -53,15 +50,13 @@ public class BiblioController {
     // Emprunts
 
     @PostMapping("/emprunts")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Emprunt> emprunterDocument(@RequestBody Emprunt newEmprunt, @PathVariable Client client, @PathVariable Document document) {
         logger.info("post - createEmprunt " + newEmprunt);
         //return service.emprunterDocument(client, document)...
         return null;
     }
 
-    @DeleteMapping("/emprunts/{client.id}")
-    @CrossOrigin(origins = "http:/localhost:3000")
+    @DeleteMapping("/emprunts/{id}")
     public ResponseEntity<Long> retournerDocument(Emprunt oldEmprunt, Client client, Document document, @PathVariable Long id) {
         logger.info("delete - deleteEmprunt " + id);
         //service.retournerDocument(client, document);
@@ -69,7 +64,6 @@ public class BiblioController {
     }
 
     @GetMapping("/emprunts/{id}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Emprunt> getAllEmprunts(@PathVariable Long id) {
         logger.info("getAllEmprunts");
         //return service.listerEmprunts(id);
@@ -79,14 +73,12 @@ public class BiblioController {
     // Livres
 
     @GetMapping("/livres")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Livre> getAllLivres() {
         logger.info("getAllLivres");
         return service.getAllLivres();
     }
 
     @GetMapping ("/livres/{id}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Livre> getLivre(@PathVariable Long id) {
         logger.info("findLivreById " + id);
         return service.findLivreById(id)
@@ -95,7 +87,6 @@ public class BiblioController {
     }
 
     @PostMapping("/livres")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Livre> createLivre(@RequestBody Livre newLivre) {
         logger.info("post - createLivre " + newLivre);
         return service.saveLivre(newLivre)
@@ -104,7 +95,6 @@ public class BiblioController {
     }
 
     @PutMapping("/livres/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Livre> updateLivre(@RequestBody Livre newLivre, @PathVariable Long id) {
         logger.info("update - updateLivre " + newLivre);
         return service.saveLivre(newLivre)
@@ -113,7 +103,6 @@ public class BiblioController {
     }
 
     @DeleteMapping("/livres/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteLivre(Livre oldLivre, @PathVariable Long id) {
         logger.info("delete - deleteLivre " + id);
         service.deleteLivre(oldLivre);
@@ -123,14 +112,12 @@ public class BiblioController {
     // Cds
 
     @GetMapping("/cds")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Cd> getAllCds() {
         logger.info("getAllCds");
         return service.getAllCds();
     }
 
     @GetMapping ("/cds/{id}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Cd> getCd(@PathVariable Long id) {
         logger.info("findCdById " + id);
         return service.findCdById(id)
@@ -139,7 +126,6 @@ public class BiblioController {
     }
 
     @PostMapping("/cds")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Cd> createCd(@RequestBody Cd newCd) {
         logger.info("post - createCd " + newCd);
         return service.saveCd(newCd)
@@ -148,7 +134,6 @@ public class BiblioController {
     }
 
     @PutMapping("/cds/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Cd> updateCd(@RequestBody Cd newCd, @PathVariable Long id) {
         logger.info("update - updateCd " + newCd);
         return service.saveCd(newCd)
@@ -157,7 +142,6 @@ public class BiblioController {
     }
 
     @DeleteMapping("/cds/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteCd(Cd oldCd, @PathVariable Long id) {
         logger.info("delete - deleteCd " + id);
         service.deleteCd(oldCd);
@@ -167,14 +151,12 @@ public class BiblioController {
     // Dvds
 
     @GetMapping("/dvds")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Dvd> getAllDvds() {
         logger.info("getAllDvs");
         return service.getAllDvds();
     }
 
     @GetMapping ("/dvds/{id}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Dvd> getDvd(@PathVariable Long id) {
         logger.info("findDvdById " + id);
         return service.findDvdById(id)
@@ -183,7 +165,6 @@ public class BiblioController {
     }
 
     @PostMapping("/dvds")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Dvd> createDvd(@RequestBody Dvd newDvd) {
         logger.info("post - createDvd " + newDvd);
         return service.saveDvd(newDvd)
@@ -192,7 +173,6 @@ public class BiblioController {
     }
 
     @PutMapping("/dvds/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Dvd> updateDvd(@RequestBody Dvd newDvd, @PathVariable Long id) {
         logger.info("update - updateDvd " + newDvd);
         return service.saveDvd(newDvd)
@@ -201,7 +181,6 @@ public class BiblioController {
     }
 
     @DeleteMapping("/dvds/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteDvd(Dvd oldDvd, @PathVariable Long id) {
         logger.info("delete - deleteDvd " + id);
         service.deleteDvd(oldDvd);
@@ -211,14 +190,12 @@ public class BiblioController {
     // Clients
 
     @GetMapping("/clients")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public List<Client> getAllClients() {
         logger.info("getAllClients");
         return service.getAllClients();
     }
 
     @GetMapping ("/clients/{id}")
-    @CrossOrigin(origins = "http:/localhost:3000")
     public ResponseEntity<Client> getClient(@PathVariable Long id) {
         logger.info("findClientById " + id);
         return service.findClientById(id)
@@ -227,7 +204,6 @@ public class BiblioController {
     }
 
     @PostMapping("/clients")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Client> createClient(@RequestBody Client newClient) {
         logger.info("post - createClient " + newClient);
         return service.saveClient(newClient)
@@ -236,7 +212,6 @@ public class BiblioController {
     }
 
     @PutMapping("/clients/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Client> updateClient(@RequestBody Client newClient, @PathVariable Long id) {
         logger.info("update - updateClient " + newClient);
         return service.saveClient(newClient)
@@ -245,7 +220,6 @@ public class BiblioController {
     }
 
     @DeleteMapping("/clients/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Long> deleteClient(Client oldClient, @PathVariable Long id) {
         logger.info("delete - deleteClient " + id);
         service.deleteClient(oldClient);
