@@ -7,14 +7,13 @@ const RechercheTitre = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!query) {
-            alert('Veuillez ajouter un titre')
+            alert('Veuillez entrer un titre')
             return
         }
     
         async function fetchData() {
           const response = await fetch(`http://localhost:8080/documents/titre/${query}`);
           const data = await response.json();
-          console.log({data});
           setData(data);
         }
         fetchData();
@@ -22,7 +21,7 @@ const RechercheTitre = () => {
 
       return (
         <div>
-            <h3>Recherche par catégorie</h3>
+            <h3>Recherche par titre</h3>
           <form onSubmit={handleSubmit}>
             <label>Titre:
                 <input
