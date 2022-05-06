@@ -7,7 +7,7 @@ import RechercheTitre from "./RechercheTitre";
 
 function Client() {
 
-    const [rechercheTitre, setRechercheTitre] = useState([])
+    /*const [rechercheTitre, setRechercheTitre] = useState([])
     const [rechercheAuteur, setRechercheAuteur] = useState([])
     const [rechercheAnnee, setRechercheAnnee] = useState([])
     const [rechercheCategorie, setRechercheCategorie] = useState([])
@@ -57,12 +57,16 @@ function Client() {
         const res = await fetch(`http://localhost:8080/categorie/${categorie}`)
         const data = await res.json()
         return data
-    }
+    }*/
 
     return (
 
         <div>
             <h2>Client Pannel</h2>
+            <RechercheTitre/>
+            <RechercheAuteur/>
+            <RechercheAnnee/>
+            <RechercheCategorie/>
         </div>
     );
 }
