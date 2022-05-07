@@ -1,14 +1,13 @@
 package com.gct.tp3;
 
-import com.gct.tp3.modele.Cd;
-import com.gct.tp3.modele.Client;
-import com.gct.tp3.modele.Dvd;
-import com.gct.tp3.modele.Livre;
+import com.gct.tp3.modele.*;
 import com.gct.tp3.service.BiblioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
 
 @SpringBootApplication
 public class Tp3Application implements CommandLineRunner {
@@ -46,11 +45,11 @@ public class Tp3Application implements CommandLineRunner {
 
         service.emprunterDocument(client1, livre1);
         service.emprunterDocument(client1, dvd1);
-        service.retournerDocument(client1, livre1);
+        service.emprunterDocument(client1, cd1);
 
-        //System.out.println(service.listerEmprunts(1));
+        final Emprunt emprunt3 = client1.getEmprunts().get(2);
+        service.retournerDocument(emprunt3);
 
-        service.genererAmendes();
-        service.genererAmendesBidon();
+        System.out.println(service.getAllEmpruntsOfClient(1L));
     }
 }

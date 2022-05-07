@@ -120,7 +120,7 @@ public class BiblioService {
         return documentRepository.findByCategorie(categorie);
     }
 
-    public void emprunterDocument(Client client, Document doc) {
+    public Optional<Emprunt> emprunterDocument(Client client, Document doc) {
         if (client.getEmprunts() == null) {
             List<Emprunt> emprunts = new ArrayList<>();
             client.setEmprunts(emprunts);
@@ -137,15 +137,26 @@ public class BiblioService {
             doc.setExamplaires(doc.getExamplaires() - 1);
             client.getEmprunts().add(emprunt);
             clientRepository.save(client);
-            empruntRepository.save(emprunt);
             documentRepository.save(doc);
             System.out.println("Emprunt effectué.");
+            return Optional.of(empruntRepository.save(emprunt));
         } else {
             System.out.println("IL ne reste plus d'examplaires de ce document.");
+            return null;
         }
     }
 
-    public void retournerDocument(Client client, Document doc) {
+    public void retournerDocument(Emprunt emprunt) {
+        Document doc = emprunt.getDocument();
+        Client client = emprunt.getClient();
+        client.getEmprunts().remove(emprunt);
+        clientRepository.save(client);
+        doc.setExamplaires(doc.getExamplaires() + 1);
+        documentRepository.save(doc);
+        empruntRepository.delete(emprunt);
+    }
+
+    /*public void retournerDocument(Client client, Document doc) {
         List<Emprunt> emprunts = client.getEmprunts();
         for (Emprunt emprunt : emprunts) {
             if (emprunt.getDocument().equals(doc)) {
@@ -157,7 +168,7 @@ public class BiblioService {
             }
         }
         clientRepository.save(client);
-    }
+    }*/
 
     public void payerFraisRetard(Client client) {
         if (client.getAmendes() != null) {
@@ -234,5 +245,13 @@ public class BiblioService {
 
     public Optional<Dvd> findDvdById(Long id) {
         return dvdRepository.findById(id);
+    }
+
+    public List<Emprunt> getAllEmpruntsOfClient(Long id) {
+        return empruntRepository.findAllByClientId(id);
+    }
+
+    public List<Emprunt> getAllEmprunts() {
+        return empruntRepository.findAll();
     }
 }

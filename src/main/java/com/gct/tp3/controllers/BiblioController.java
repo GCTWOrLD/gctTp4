@@ -52,22 +52,22 @@ public class BiblioController {
     @PostMapping("/emprunts")
     public ResponseEntity<Emprunt> emprunterDocument(@RequestBody Emprunt newEmprunt, @PathVariable Client client, @PathVariable Document document) {
         logger.info("post - createEmprunt " + newEmprunt);
-        //return service.emprunterDocument(client, document)...
-        return null;
+        return service.emprunterDocument(client, document)
+                .map(emprunt -> ResponseEntity.status(HttpStatus.CREATED).body(emprunt))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
     @DeleteMapping("/emprunts/{id}")
-    public ResponseEntity<Long> retournerDocument(Emprunt oldEmprunt, Client client, Document document, @PathVariable Long id) {
+    public ResponseEntity<Long> retournerDocument(Emprunt oldEmprunt, @PathVariable Long id) {
         logger.info("delete - deleteEmprunt " + id);
-        //service.retournerDocument(client, document);
+        service.retournerDocument(oldEmprunt);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @GetMapping("/emprunts/{id}")
-    public List<Emprunt> getAllEmprunts(@PathVariable Long id) {
-        logger.info("getAllEmprunts");
-        //return service.listerEmprunts(id);
-        return null;
+    public List<Emprunt> getAllEmpruntsWithClientId(@PathVariable Long id) {
+        logger.info("getAllEmpruntsWithClientId");
+        return service.getAllEmpruntsOfClient(id);
     }
 
     // Livres
