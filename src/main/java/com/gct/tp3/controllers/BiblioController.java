@@ -121,7 +121,7 @@ public class BiblioController {
         return service.getAllLivres();
     }
 
-    @GetMapping ("/livres/{id}")
+    @GetMapping("/livres/{id}")
     public ResponseEntity<Livre> getLivre(@PathVariable Long id) {
         logger.info("findLivreById " + id);
         return service.findLivreById(id)
@@ -160,7 +160,7 @@ public class BiblioController {
         return service.getAllCds();
     }
 
-    @GetMapping ("/cds/{id}")
+    @GetMapping("/cds/{id}")
     public ResponseEntity<Cd> getCd(@PathVariable Long id) {
         logger.info("findCdById " + id);
         return service.findCdById(id)
@@ -199,7 +199,7 @@ public class BiblioController {
         return service.getAllDvds();
     }
 
-    @GetMapping ("/dvds/{id}")
+    @GetMapping("/dvds/{id}")
     public ResponseEntity<Dvd> getDvd(@PathVariable Long id) {
         logger.info("findDvdById " + id);
         return service.findDvdById(id)
@@ -238,7 +238,7 @@ public class BiblioController {
         return service.getAllClients();
     }
 
-    @GetMapping ("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ResponseEntity<Client> getClient(@PathVariable Long id) {
         logger.info("findClientById " + id);
         return service.findClientById(id)

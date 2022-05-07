@@ -20,14 +20,14 @@ public class Client extends Personne {
     @OneToMany(mappedBy = "client")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Column(nullable = true)
-    @JsonBackReference(value="client_emprunts")
+    @JsonBackReference(value = "client_emprunts")
     @ToString.Exclude
     private List<Emprunt> emprunts = new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Column(nullable = true)
-    @JsonBackReference(value="client_amendes")
+    @JsonBackReference(value = "client_amendes")
     @ToString.Exclude
     private List<Amende> amendes = new ArrayList<>();
 

@@ -186,10 +186,6 @@ public class BiblioService {
         }
     }
 
-    /*public List<Emprunt> listerEmprunts(long idClient) {
-        return empruntRepository.findEmpruntsAndDateRetour(idClient);
-    }*/
-
     public List<Livre> getAllLivres() {
         return livreRepository.findAll();
     }
