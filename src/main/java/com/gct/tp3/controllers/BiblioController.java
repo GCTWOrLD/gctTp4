@@ -69,18 +69,47 @@ public class BiblioController {
         return service.getAllEmpruntsOfClient(id);
     }
 
-    @PostMapping("/emprunts")
+    /*@PostMapping("/emprunts")
     public ResponseEntity<Emprunt> emprunterDocument(@RequestBody Emprunt newEmprunt, @PathVariable Client client, @PathVariable Document document) {
         logger.info("post - createEmprunt " + newEmprunt);
         return service.emprunterDocument(client, document)
                 .map(emprunt -> ResponseEntity.status(HttpStatus.CREATED).body(emprunt))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-    }
+    }*/
 
     @DeleteMapping("/emprunts/{id}")
     public ResponseEntity<Long> retournerDocument(Emprunt oldEmprunt, @PathVariable Long id) {
-        logger.info("delete - deleteEmprunt " + id);
+        logger.info("delete - retournerEmprunt " + id);
         service.retournerDocument(oldEmprunt);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    // Amendes
+
+    @GetMapping("/amendes")
+    public List<Amende> getAllAmendes() {
+        logger.info("getAllAmendes");
+        return service.getAllAmendes();
+    }
+
+    @GetMapping("/amendes/{id}")
+    public ResponseEntity<Amende> getAmende(@PathVariable Long id) {
+        logger.info("findAmendeById " + id);
+        return service.findAmendeById(id)
+                .map(amende -> ResponseEntity.status(HttpStatus.CREATED).body(amende))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @GetMapping("/amendes/client/{id}")
+    public List<Amende> getAllAmendesWithClientId(@PathVariable Long id) {
+        logger.info("getAllAmendesWithClientId " + id);
+        return service.getAllAmendesOfClient(id);
+    }
+
+    @DeleteMapping("/amendes/{id}")
+    public ResponseEntity<Long> payerAmmende(Amende oldAmende, @PathVariable Long id) {
+        logger.info("delete - payerAmende " + id);
+        service.payerFraisRetard(oldAmende);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 

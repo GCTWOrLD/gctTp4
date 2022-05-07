@@ -153,19 +153,10 @@ public class BiblioService {
         documentRepository.save(doc);
         empruntRepository.delete(emprunt);
     }
-    
-    public void payerFraisRetard(Client client) {
-        if (client.getAmendes() != null) {
-            List<Amende> amendes = client.getAmendes();
-            for (Amende amende : amendes) {
-                amendes.remove(amende);
-                amendeRepository.delete(amende);
-            }
-            clientRepository.save(client);
-            System.out.println("Frais payés.");
-        } else {
-            System.out.println("Vous n'avez pas de frais à payer.");
-        }
+
+    public void payerFraisRetard(Amende amende) {
+        amendeRepository.delete(amende);
+        System.out.println("Frais payés.");
     }
 
     public void genererAmendes() {
@@ -188,7 +179,7 @@ public class BiblioService {
                 amendeRepository.save(new Amende(montant, now.minusDays(jours), Math.toIntExact(jours),
                         emprunt.getDocument().getTitre(),
                         emprunt.getClient()));
-                System.out.println("Les amendes ont été générées.");
+                System.out.println("L'amende a été générée.");
             } else {
                 System.out.println("Aucun emprunts en retard.");
             }
@@ -241,5 +232,17 @@ public class BiblioService {
 
     public Optional<Emprunt> findEmpruntById(Long id) {
         return empruntRepository.findById(id);
+    }
+
+    public List<Amende> getAllAmendes() {
+        return amendeRepository.findAll();
+    }
+
+    public Optional<Amende> findAmendeById(Long id) {
+        return amendeRepository.findById(id);
+    }
+
+    public List<Amende> getAllAmendesOfClient(Long id) {
+        return amendeRepository.findAllByClientId(id);
     }
 }
