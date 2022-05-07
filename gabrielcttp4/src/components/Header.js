@@ -1,10 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     const red = "#FF0000"
     const black = "#000000"
-    const navLinkStyles = ({isActive}) => {
+    const navLinkStyles = ({ isActive }) => {
         console.log(isActive)
         return {
             fontSize: "20px",
