@@ -37,12 +37,12 @@ const RechercheCategorie = () => {
             </label>
             <input type="submit" value="Submit"/>
           </form>
-          <h3>Titre / Auteur / Année / Catégorie / Examplaires</h3>
+          <h3>Titre | Auteur | Année | Catégorie | Examplaires</h3>
     
           {data &&
             data.map((document) => (
               <div key={document.id}>
-                <p>{document.titre} / {document.auteur}</p>
+                <p>{document.titre} | {document.auteur} | {document.annee} | {document.categorie} | {document.examplaires}</p>
               </div>
             ))}
         </div>

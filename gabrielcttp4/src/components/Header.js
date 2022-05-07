@@ -2,14 +2,16 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 const Header = () => {
-    const blue = "#89CFF0"
-    const red = "#F12B2A"
+    const red = "#FF0000"
+    const black = "#000000"
     const navLinkStyles = ({isActive}) => {
         console.log(isActive)
         return {
+            fontSize: "20px",
             fontWeight: isActive ? "bold" : "normal",
             textDecoration: isActive ? "none" : "underline",
-            color: isActive ? `${red}` : `${blue}`
+            backgroundColor: isActive ? "black" : "white",
+            color: isActive ? `${red}` : `${black}`
         }
     }
     return (

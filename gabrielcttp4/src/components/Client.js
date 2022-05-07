@@ -13,7 +13,7 @@ function Client() {
 
     useEffect(() => {
         const getEmprunts = async () => {
-            const empruntsFromServer = await fetchEmprunts(1)
+            const empruntsFromServer = await fetchEmprunts(idClientCourrant)
             setEmprunts(empruntsFromServer)
           }
           getEmprunts()
