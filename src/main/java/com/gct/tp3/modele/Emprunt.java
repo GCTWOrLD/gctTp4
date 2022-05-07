@@ -3,6 +3,8 @@ package com.gct.tp3.modele;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,10 +23,12 @@ public class Emprunt {
     private LocalDateTime dateRetour;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Client_ID")
     private Client client;
 
     @OneToOne(cascade = CascadeType.MERGE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "Document_ID", referencedColumnName = "id")
     private Document document;
 

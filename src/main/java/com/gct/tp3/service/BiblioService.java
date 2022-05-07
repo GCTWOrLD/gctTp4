@@ -147,6 +147,7 @@ public class BiblioService {
     }
 
     public void retournerDocument(Emprunt emprunt) {
+        System.out.println(emprunt);
         Document doc = emprunt.getDocument();
         Client client = emprunt.getClient();
         client.getEmprunts().remove(emprunt);
@@ -253,5 +254,9 @@ public class BiblioService {
 
     public List<Emprunt> getAllEmprunts() {
         return empruntRepository.findAll();
+    }
+
+    public Optional<Emprunt> findEmpruntById(Long id) {
+        return empruntRepository.findById(id);
     }
 }

@@ -49,7 +49,5 @@ public class Tp3Application implements CommandLineRunner {
 
         final Emprunt emprunt3 = client1.getEmprunts().get(2);
         service.retournerDocument(emprunt3);
-
-        System.out.println(service.getAllEmpruntsOfClient(1L));
     }
 }

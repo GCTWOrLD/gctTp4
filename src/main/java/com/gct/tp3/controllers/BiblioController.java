@@ -49,6 +49,26 @@ public class BiblioController {
 
     // Emprunts
 
+    @GetMapping("/emprunts")
+    public List<Emprunt> getAllEmprunts() {
+        logger.info("getAllEmprunts");
+        return service.getAllEmprunts();
+    }
+
+    @GetMapping("/emprunts/{id}")
+    public ResponseEntity<Emprunt> getEmprunt(@PathVariable Long id) {
+        logger.info("findEmpruntById " + id);
+        return service.findEmpruntById(id)
+                .map(emprunt -> ResponseEntity.status(HttpStatus.CREATED).body(emprunt))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @GetMapping("/emprunts/client/{id}")
+    public List<Emprunt> getAllEmpruntsWithClientId(@PathVariable Long id) {
+        logger.info("getAllEmpruntsWithClientId " + id);
+        return service.getAllEmpruntsOfClient(id);
+    }
+
     @PostMapping("/emprunts")
     public ResponseEntity<Emprunt> emprunterDocument(@RequestBody Emprunt newEmprunt, @PathVariable Client client, @PathVariable Document document) {
         logger.info("post - createEmprunt " + newEmprunt);
@@ -62,12 +82,6 @@ public class BiblioController {
         logger.info("delete - deleteEmprunt " + id);
         service.retournerDocument(oldEmprunt);
         return new ResponseEntity<>(id, HttpStatus.OK);
-    }
-
-    @GetMapping("/emprunts/{id}")
-    public List<Emprunt> getAllEmpruntsWithClientId(@PathVariable Long id) {
-        logger.info("getAllEmpruntsWithClientId");
-        return service.getAllEmpruntsOfClient(id);
     }
 
     // Livres
