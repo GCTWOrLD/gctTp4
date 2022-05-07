@@ -147,30 +147,13 @@ public class BiblioService {
     }
 
     public void retournerDocument(Emprunt emprunt) {
-        System.out.println(emprunt);
-        Document doc = emprunt.getDocument();
-        Client client = emprunt.getClient();
-        client.getEmprunts().remove(emprunt);
-        clientRepository.save(client);
+        Optional<Emprunt> oldEmprunt = findEmpruntById(emprunt.getId());
+        Document doc = oldEmprunt.get().getDocument();
         doc.setExamplaires(doc.getExamplaires() + 1);
         documentRepository.save(doc);
         empruntRepository.delete(emprunt);
     }
-
-    /*public void retournerDocument(Client client, Document doc) {
-        List<Emprunt> emprunts = client.getEmprunts();
-        for (Emprunt emprunt : emprunts) {
-            if (emprunt.getDocument().equals(doc)) {
-                emprunts.remove(emprunt);
-                empruntRepository.delete(emprunt);
-                doc.setExamplaires(doc.getExamplaires() + 1);
-                documentRepository.save(doc);
-                System.out.println("Retour effectué.");
-            }
-        }
-        clientRepository.save(client);
-    }*/
-
+    
     public void payerFraisRetard(Client client) {
         if (client.getAmendes() != null) {
             List<Amende> amendes = client.getAmendes();
