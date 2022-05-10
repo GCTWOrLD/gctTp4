@@ -1,17 +1,25 @@
 package com.gct.tp3;
 
+import com.gct.tp3.Dto.ClientDto;
 import com.gct.tp3.modele.*;
 import com.gct.tp3.service.BiblioService;
+import com.gct.tp3.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class Tp3Application implements CommandLineRunner {
 
     @Autowired
     private BiblioService service;
+
+    @Autowired
+    private MapService mapService;
 
     public static void main(String[] args) {
         SpringApplication.run(Tp3Application.class, args);

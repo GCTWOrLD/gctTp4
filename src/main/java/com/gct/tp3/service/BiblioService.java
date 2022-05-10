@@ -1,5 +1,6 @@
 package com.gct.tp3.service;
 
+import com.gct.tp3.Dto.ClientDto;
 import com.gct.tp3.modele.*;
 import com.gct.tp3.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
