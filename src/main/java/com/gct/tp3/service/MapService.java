@@ -5,7 +5,6 @@ import com.gct.tp3.modele.*;
 import com.gct.tp3.repository.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,29 +14,39 @@ import java.util.stream.Collectors;
 @Service
 public class MapService {
 
-    @Autowired
     private ClientRepository clientRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
     private AmendeRepository amendeRepository;
 
-    @Autowired
     private DocumentRepository documentRepository;
 
-    @Autowired
     private LivreRepository livreRepository;
-
-    @Autowired
+    
     private CdRepository cdRepository;
 
-    @Autowired
     private DvdRepository dvdRepository;
 
-    @Autowired
     private EmpruntRepository empruntRepository;
+
+    public MapService(ClientRepository clientRepository,
+                      ModelMapper modelMapper,
+                      AmendeRepository amendeRepository,
+                      DocumentRepository documentRepository,
+                      LivreRepository livreRepository,
+                      CdRepository cdRepository,
+                      DvdRepository dvdRepository,
+                      EmpruntRepository empruntRepository) {
+        this.clientRepository = clientRepository;
+        this.modelMapper = modelMapper;
+        this.amendeRepository = amendeRepository;
+        this.documentRepository = documentRepository;
+        this.livreRepository = livreRepository;
+        this.cdRepository = cdRepository;
+        this.dvdRepository = dvdRepository;
+        this.empruntRepository = empruntRepository;
+    }
 
     public List<ClientDto> getAllClients() {
         return clientRepository.findAll().stream().map(this::convertToClientDto).collect(Collectors.toList());

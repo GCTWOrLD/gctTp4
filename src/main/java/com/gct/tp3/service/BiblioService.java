@@ -1,9 +1,7 @@
 package com.gct.tp3.service;
 
-import com.gct.tp3.Dto.ClientDto;
 import com.gct.tp3.modele.*;
 import com.gct.tp3.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,29 +15,35 @@ public class BiblioService {
 
     private final double FRAIS_RETARD_PAR_JOUR = 0.25;
 
-    @Autowired
     private AmendeRepository amendeRepository;
 
-    @Autowired
     private DocumentRepository documentRepository;
 
-    @Autowired
     private LivreRepository livreRepository;
 
-    @Autowired
     private CdRepository cdRepository;
 
-    @Autowired
     private DvdRepository dvdRepository;
 
-    @Autowired
     private EmpruntRepository empruntRepository;
 
-    @Autowired
-    private PersonneRepository personneRepository;
-
-    @Autowired
     private ClientRepository clientRepository;
+
+    public BiblioService(ClientRepository clientRepository,
+                      AmendeRepository amendeRepository,
+                      DocumentRepository documentRepository,
+                      LivreRepository livreRepository,
+                      CdRepository cdRepository,
+                      DvdRepository dvdRepository,
+                      EmpruntRepository empruntRepository) {
+        this.clientRepository = clientRepository;
+        this.amendeRepository = amendeRepository;
+        this.documentRepository = documentRepository;
+        this.livreRepository = livreRepository;
+        this.cdRepository = cdRepository;
+        this.dvdRepository = dvdRepository;
+        this.empruntRepository = empruntRepository;
+    }
 
     public Client saveClient(String prenom, String nom, String username,
                              String password, String email, String telephone,
